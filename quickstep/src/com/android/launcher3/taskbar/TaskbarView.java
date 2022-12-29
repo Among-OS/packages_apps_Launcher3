@@ -183,7 +183,11 @@ public class TaskbarView extends FrameLayout implements FolderIcon.FolderIconPar
                     resources.getDrawable(R.drawable.taskbar_overflow_icon));
             mTaskbarOverflowView.setPadding(mItemPadding, mItemPadding, mItemPadding, mItemPadding);
         }
-        mQsb = LayoutInflater.from(context).inflate(R.layout.search_container_hotseat, this, false);
+        if (Utilities.showQSB(context)) {
+            mQsb = LayoutInflater.from(context).inflate(R.layout.search_container_hotseat, this, false);
+        } else {
+            mQsb = LayoutInflater.from(context).inflate(R.layout.empty_view, this, false);
+        }
     }
 
     @Override
