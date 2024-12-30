@@ -20,7 +20,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Settings title to show Google Now at -1 screen on launcher. [CHAR LIMIT=50] -->
-    <string name="title_show_google_feed">Google 探索</string>
+    <string name="title_show_google_app">Google 探索</string>
 
     <!-- Settings message explaining when the -1 screen is available on an LTR device. [CHAR LIMIT=100] -->
     <string name="msg_minus_one_on_left">从主屏幕向左划动时显示</string>
@@ -51,6 +51,8 @@
     <string name="label_voice_search">语音搜索</string>
     <string name="dock_search_title">Google 搜索栏</string>
     <string name="dock_search_summary">在底部停靠区显示搜索栏</string>
+    <string name="pref_dock_search_provider_title">搜索栏提供软件</string>
+    <string name="pref_dock_search_provider_default">默认 (预设列表)</string>
 
     <!-- Kill App recents action shortcut -->
     <string name="recent_task_option_kill_app">强行停止</string>
@@ -93,6 +95,10 @@
 
     <!-- Background opacity -->
     <string name="background_opacity_title">抽屉透明度</string>
+
+    <!-- Auto keyboard -->
+    <string name="pref_auto_keyboard_title">自动键盘</string>
+    <string name="pref_auto_keyboard_summary">抽屉展开后开始搜索</string>
 
     <!-- Hide labels -->
     <string name="desktop_show_labels">在主屏幕上显示图标标签</string>
