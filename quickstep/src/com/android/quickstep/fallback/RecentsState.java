@@ -131,10 +131,8 @@ public class RecentsState implements BaseState<RecentsState> {
      * For this state, what color scrim should be drawn behind overview.
      */
     public int getScrimColor(Context context) {
-        return hasFlag(FLAG_SCRIM) ? ColorUtils.setAlphaComponent(
-                Themes.getAttrColor(context, R.attr.overviewScrimColor),
-                60 * 255 / 100)
-                : Color.TRANSPARENT;
+        return hasFlag(FLAG_SCRIM) ? Themes.getAttrColor(context, R.attr.overviewScrimColor)
+            : Color.TRANSPARENT;
     }
 
     public float[] getOverviewScaleAndOffset(RecentsViewContainer container) {
