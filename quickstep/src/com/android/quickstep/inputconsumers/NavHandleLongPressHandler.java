@@ -70,8 +70,7 @@ public class NavHandleLongPressHandler implements ResourceBasedOverride {
      * @param navHandle to handle this long press
      */
     public @Nullable Runnable getLongPressRunnable(NavHandle navHandle) {
-	    if (!Utilities.isGSAEnabled(mContext) ||
-            !Utilities.isLongPressToSearchEnabled(mContext)) {
+	if (!Utilities.isGSAEnabled(mContext)) {
             return null;
         }
         updateThumbnail();
