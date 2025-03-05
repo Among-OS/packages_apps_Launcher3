@@ -20,14 +20,9 @@ import static android.os.VibrationEffect.createPredefined;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
-import android.app.contextualsearch.ContextualSearchManager;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.VibrationEffect;
 import android.util.Log;
-import android.view.ViewConfiguration;
 
 import androidx.annotation.Nullable;
 
@@ -39,30 +34,16 @@ import com.android.launcher3.util.VibratorWrapper;
 import com.android.launcher3.Utilities;
 import com.android.quickstep.NavHandle;
 import com.android.quickstep.TopTaskTracker;
-import com.android.quickstep.util.AssistUtils;
 
 import com.android.systemui.shared.recents.model.ThumbnailData;
 import com.android.systemui.shared.system.ActivityManagerWrapper;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class for extending nav handle long press behavior
  */
-public class NavHandleLongPressHandler {
-
-    private static final VibrationEffect EFFECT_HEAVY_CLICK =
-            VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK);
-    private static final VibrationEffect EFFECT_TICK =
-            VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK);
-
-    private static final Handler mHandler = new Handler(Looper.getMainLooper());
-
-    public NavHandleLongPressHandler(Context context) {
-        mContext = context;
-        mAssistUtils = new AssistUtils(mContext);
-    }
+public class NavHandleLongPressHandler implements ResourceBasedOverride {
 
     private final String TAG = "NavHandleLongPressHandler";
     private boolean DEBUG = false;
@@ -70,13 +51,11 @@ public class NavHandleLongPressHandler {
     private ThumbnailData mThumbnailData;
     private TopTaskTracker mTopTaskTracker;
     private Context mContext;
-    private AssistUtils mAssistUtils;
 
     /** Creates NavHandleLongPressHandler as specified by overrides */
     public NavHandleLongPressHandler(Context context, TopTaskTracker topTaskTracker) {
         mContext = context;
         mTopTaskTracker = topTaskTracker;
-	mAssistUtils = new AssistUtils(mContext);
     }
 
     /**
@@ -95,27 +74,8 @@ public class NavHandleLongPressHandler {
             !Utilities.isLongPressToSearchEnabled(mContext)) {
             return null;
         }
-
-        VibrationUtils.triggerVibration(mContext, 5);
-        navHandle.animateNavBarLongPress(true, true, 200L);
-
-        // CTS
-        if (mAssistUtils.canDoContextualSearch()) {
-            return new Runnable() {
-                @Override
-                public final void run() {
-                    mHandler.postDelayed(() -> {
-                        if (mAssistUtils.invokeContextualSearch(
-                                ContextualSearchManager.ENTRYPOINT_LONG_PRESS_NAV_HANDLE)) {
-                            VibratorWrapper.INSTANCE.get(mContext).vibrate(EFFECT_HEAVY_CLICK);
-                        }
-                    }, ViewConfiguration.getLongPressTimeout());
-                }
-            };
-        }
-
-        // Lens
         updateThumbnail();
+        VibrationUtils.triggerVibration(mContext, 5);
         if (mThumbnailData != null && mThumbnailData.getThumbnail() != null) {
             if (DEBUG) Log.d(TAG, "getLongPressRunnable: Google lens should start now");
             ImageActionUtils.startLensActivity(mContext, mThumbnailData.getThumbnail(), null, TAG);
@@ -161,7 +121,5 @@ public class NavHandleLongPressHandler {
      * @param navHandle to handle the animation for this touch
      * @param reason why the touch ended
      */
-    public void onTouchFinished(NavHandle navHandle, String reason) {
-        navHandle.animateNavBarLongPress(false, true, 200L);
-    }
+    public void onTouchFinished(NavHandle navHandle, String reason) {}
 }
