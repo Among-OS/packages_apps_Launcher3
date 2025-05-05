@@ -1026,7 +1026,7 @@ public final class Utilities {
 
     private static boolean isQSBEnabled(Context context) {
         SharedPreferences prefs = LauncherPrefs.getPrefs(context.getApplicationContext());
-        return prefs.getBoolean(KEY_DOCK_SEARCH, true);
+        return prefs.getBoolean(KEY_DOCK_SEARCH, false);
     }
 
     public static LinkedHashMap<String, String> getQSBProviderFallbacks(Context context) {
