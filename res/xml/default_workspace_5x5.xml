@@ -72,9 +72,18 @@
         launcher:className="com.google.android.googlequicksearchbox.SearchWidgetProvider"
         launcher:screen="0"
         launcher:x="0"
-        launcher:y="0"
+        launcher:y="3"
         launcher:spanX="5"
         launcher:spanY="1" />
+
+    <appwidget
+        launcher:screen="0"
+        launcher:x="0"
+        launcher:y="0"
+        launcher:spanX="5"
+        launcher:spanY="2"
+        launcher:packageName="com.motorola.timeweatherwidget"
+        launcher:className="com.motorola.commandcenter.row2.RowProvider2" />
 
     <appwidget
         launcher:packageName="com.android.deskclock"
